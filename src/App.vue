@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Minha lista</h1>
+    <input @keyup.enter="addFood" type="text" v-model="currentFood" />
+    <button @click="addFood">Add!</button>
+
+    <food-list @stop="handleStop" :foods="foods" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import FoodList from './components/FoodList'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { FoodList },
+  data: () => ({
+    foods: ['Maçã', 'Pera'],
+    currentFood: '',
+  }),
+  methods: {
+    addFood() {
+      this.foods.push(this.currentFood)
+      this.currentFood = ''
+    },
+    handleStop(payload) {
+      alert(payload)
+    },
+  },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
